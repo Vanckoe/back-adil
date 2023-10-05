@@ -52,16 +52,16 @@ const productsdata = {
                 console.error("Error updating product:", error);
             }
         },
-        async DELETE_PRODUCT({ commit }, id) {
+        async DELETE_PRODUCT({ commit }, productId) {
             try {
-                const response = await httpClient.delete(`products/${id}`);
-                if (response.status === 200) {
-                    commit('REMOVE_PRODUCT', id);
-                }
+              const response = await httpClient.delete(`products/${productId}`);
+              if (response.status === 200) {
+                commit('REMOVE_PRODUCT', productId); 
+              }
             } catch (error) {
-                console.error("Error deleting product:", error);
+              console.error("Error deleting product:", error);
             }
-        },
+          },
     },
     mutations: {
         SET_PRODUCTS(state, backendData) {

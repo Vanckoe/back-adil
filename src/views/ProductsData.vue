@@ -20,7 +20,20 @@
             <p class="card-text">{{product.description}}</p>
             <RouterLink :to="'/product/' + product.id" class="nav-link">Get Full Information</RouterLink>
 
-            <button @click="deleteProduct(index)">Delete</button>
+            <button @click="deleteProduct(product.id)">Delete</button>
+            <button @click="openModal(product)">Change Product</button>
+            <div v-if="showModal" class="modal">
+   <div class="modal-content">
+     <h4>Change Product</h4>
+     <input v-model="editedProductTitle" placeholder="New Title" required>
+     <input v-model="editedProductBrand" placeholder="New Brand" required>
+     <input v-model="editedProductDescription" placeholder="New Description" required> 
+     <button  @click="updateProduct">Save</button>
+     <button @click="closeModal">Cancel</button>
+   </div>
+</div>
+
+
           </div>
         </div>
       </div>
@@ -39,21 +52,51 @@ export default {
         title: '',
         brand: '',
         description: ''
-      }
+      },
+      showModal: false,
+      editedProductTitle: '',
+      editedProductBrand: '',  
+      editedProductDescription: '',  
+      editedProductIndex: -1
     }
   },
   computed: {
     ...mapState('productsdata', ['products'])
   },
   methods: {
-    ...mapActions('productsdata', ['GET_PRODUCTS', 'CREATE_PRODUCT', 'DELETE_PRODUCT']),
+    ...mapActions('productsdata', ['GET_PRODUCTS', 'CREATE_PRODUCT', 'DELETE_PRODUCT', 'UPDATE_PRODUCT_BY_ID']),
     async addProduct() {
       await this.CREATE_PRODUCT(this.newProduct);
       this.newProduct = { title: '', brand: '', description: '' };
     },
-    async deleteProduct(index) {
-      await this.DELETE_PRODUCT(index);
+    async deleteProduct(productId) {
+    await this.DELETE_PRODUCT(productId);
+  },
+  openModal(product) {
+    this.editedProductIndex = this.products.findIndex(p => p.id === product.id);
+    this.editedProductTitle = product.title;
+    this.editedProductBrand = product.brand;
+    this.editedProductDescription = product.description; 
+    this.showModal = true;
+},
+    closeModal() {
+      this.showModal = false;
+      this.editedProductIndex = -1;
+      this.editedProductTitle = '';
+    },
+    async updateProduct() {
+    if (this.editedProductIndex !== -1) {
+        const productId = this.products[this.editedProductIndex].id;
+        const updatedProductData = {
+          title: this.editedProductTitle,
+          brand: this.editedProductBrand,  
+          description: this.editedProductDescription  
+        };
+        await this.UPDATE_PRODUCT_BY_ID({ id: productId, updatedProductData });
+        this.closeModal();
     }
+}
+
   },
   async created() {
     await this.GET_PRODUCTS();
@@ -63,4 +106,22 @@ export default {
 
 <style scoped>
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
 </style>

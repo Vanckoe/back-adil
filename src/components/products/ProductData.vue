@@ -63,13 +63,9 @@ export default {
       await this.DELETE_PRODUCT(this.productId);
       this.$router.push({ name: 'ProductsData' });
     },
-    fetchProductData() {
-      
-    }
+    
   },
-  created() {
-    this.fetchProductData();
-  }
+  
 }
 </script>
 
