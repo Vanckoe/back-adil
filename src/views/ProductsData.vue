@@ -1,44 +1,52 @@
 <template>
   <div class="container">
-    
     <div class="mb-5">
-      <h3>Add Product</h3>
-      <form @submit.prevent="addProduct">
-        <input type="text" v-model="newProduct.title" placeholder="Title" required>
-        <input type="text" v-model="newProduct.brand" placeholder="Brand" required>
-        <input type="text" v-model="newProduct.description" placeholder="Description" required>
-        <button type="submit">Add Product</button>
+      <h3 class="mb-3">Add Product</h3>
+      <form @submit.prevent="addProduct" class="mb-3">
+        <div class="form-group">
+          <input type="text" v-model="newProduct.title" class="form-control" placeholder="Title" required>
+        </div>
+        <div class="form-group">
+          <input type="text" v-model="newProduct.brand" class="form-control" placeholder="Brand" required>
+        </div>
+        <div class="form-group">
+          <input type="text" v-model="newProduct.description" class="form-control" placeholder="Description" required>
+        </div>
+        <button type="submit" class="btn btn-dark">Add Product</button>
       </form>
     </div>
     
     <div class="row">
       <div class="col-md-4" v-for="(product, index) in products" :key="index">
-        <div class="card" style="width: 18rem;">
+        <div class="card mb-3">
           <div class="card-body">
-            <h5 class="card-title">{{product.title}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{product.brand}}</h6>
-            <p class="card-text">{{product.description}}</p>
-            <RouterLink :to="'/product/' + product.id" class="nav-link">Get Full Information</RouterLink>
-
-            <button @click="deleteProduct(product.id)">Delete</button>
-            <button @click="openModal(product)">Change Product</button>
-            <div v-if="showModal" class="modal">
-   <div class="modal-content">
-     <h4>Change Product</h4>
-     <input v-model="editedProductTitle" placeholder="New Title" required>
-     <input v-model="editedProductBrand" placeholder="New Brand" required>
-     <input v-model="editedProductDescription" placeholder="New Description" required> 
-     <button  @click="updateProduct">Save</button>
-     <button @click="closeModal">Cancel</button>
-   </div>
-</div>
-
-
+            <h5 class="card-title">{{ product.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ product.brand }}</h6>
+            <p class="card-text">{{ product.description }}</p>
+            <router-link :to="'/product/' + product.id" class="nav-link">Get Full Information</router-link>
+            <button @click="deleteProduct(product.id)" class="btn btn-danger">Delete</button>
+            <button @click="openModal(product)" class="btn btn-dark">Change Product</button>
           </div>
         </div>
       </div>
     </div>
 
+    <div v-if="showModal" class="modal">
+      <div class="modal-content">
+        <h4 class="mb-3">Change Product</h4>
+        <div class="form-group">
+          <input v-model="editedProductTitle" class="form-control" placeholder="New Title" required>
+        </div>
+        <div class="form-group">
+          <input v-model="editedProductBrand" class="form-control" placeholder="New Brand" required>
+        </div>
+        <div class="form-group">
+          <input v-model="editedProductDescription" class="form-control" placeholder="New Description" required>
+        </div>
+        <button @click="updateProduct" class="btn btn-dark">Save</button>
+        <button @click="closeModal" class="btn btn-light">Cancel</button>
+      </div>
+    </div>
   </div>
 </template>
 
