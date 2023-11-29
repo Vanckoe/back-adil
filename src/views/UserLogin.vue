@@ -1,19 +1,75 @@
 <template>
-  <div>
-    <h1>Вход</h1>
+  <div class="container">
+    <h1 class="titleReg">Вход</h1>
     <form @submit.prevent="login">
       <div>
-        <label for="email">Email:</label>
-        <input id="email" v-model="form.email" type="email" required>
+        <label for="email"></label>
+        <input id="email" class="input" v-model="form.email" type="email" required placeholder="Почта: ">
       </div>
       <div>
-        <label for="password">Пароль:</label>
-        <input id="password" v-model="form.password" type="password" required>
+        <label for="password"></label>
+        <input id="password" class="input" v-model="form.password" type="password" required placeholder="Пароль: ">
       </div>
-      <button type="submit">Войти</button>
+      
+      <div class="accept">
+        <button class="input inputBtn" type="submit">Войти</button>
+        <RouterLink :to="'/register'" class="nav-link">Регистрация</RouterLink>
+      </div>
     </form>
   </div>
 </template>
+
+<style>
+.container {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 200px;
+}
+
+.titleReg {
+  font-size: 32px;
+}
+
+.input {
+  margin-top: 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: #f3f3f3;
+  padding: 10px;
+  width: 250px;
+}
+
+.input:active,
+.input:hover {
+  background-color: #f3f3f3;
+}
+
+.inputBtn {
+  min-width: 140px;
+  width: auto;
+  margin: 0;
+
+}
+
+.inputBtn:hover {
+  background-color: rgb(4, 187, 4);
+  color: white;
+}
+
+.accept {
+  display: flex;
+  width: 250px;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+</style>
 
 <script>
 import authService from '@/services/auth.service';
@@ -49,6 +105,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
