@@ -1,18 +1,18 @@
 <template>
   <div class="container">
     <div class="mb-5">
-      <h3 class="mb-3">Add Product</h3>
-      <form @submit.prevent="addProduct" class="mb-3">
+      <h3 >Add Product</h3>
+      <form @submit.prevent="addProduct" class="mb-3 wqer">
         <div class="form-group">
-          <input type="text" v-model="newProduct.title" class="form-control" placeholder="Title" required>
+          <input type="text" v-model="newProduct.title" class="form-control input" placeholder="Title" required>
         </div>
         <div class="form-group">
-          <input type="text" v-model="newProduct.brand" class="form-control" placeholder="Brand" required>
+          <input type="text" v-model="newProduct.brand" class="form-control input" placeholder="Brand" required>
         </div>
         <div class="form-group">
-          <input type="text" v-model="newProduct.description" class="form-control" placeholder="Description" required>
+          <input type="text" v-model="newProduct.description" class="form-control input" placeholder="Description" required>
         </div>
-        <button type="submit" class="btn btn-dark">Add Product</button>
+        <button type="submit" class="mt-30 inputBtn">Add Product</button>
       </form>
     </div>
     
@@ -23,28 +23,28 @@
             <h5 class="card-title">{{ product.title }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ product.brand }}</h6>
             <p class="card-text">{{ product.description }}</p>
-            <router-link :to="'/product/' + product.id" class="nav-link">Get Full Information</router-link>
-            <button @click="deleteProduct(product.id)" class="btn btn-danger">Delete</button>
-            <button @click="openModal(product)" class="btn btn-dark">Change Product</button>
+            <router-link :to="'/product/' + product.id" class="nav-link c-blue">Get Full Information</router-link>
+            <button @click="deleteProduct(product.id)" class="input btn btn-danger">Delete</button>
+            <button @click="openModal(product)" class="input btn btn-dark">Change Product</button>
           </div>
         </div>
       </div>
     </div>
 
     <div v-if="showModal" class="modal">
-      <div class="modal-content">
+      <div class="modal-content gap-10">
         <h4 class="mb-3">Change Product</h4>
         <div class="form-group">
-          <input v-model="editedProductTitle" class="form-control" placeholder="New Title" required>
+          <input v-model="editedProductTitle" class="form-control input wMax" placeholder="New Title" required>
         </div>
         <div class="form-group">
-          <input v-model="editedProductBrand" class="form-control" placeholder="New Brand" required>
+          <input v-model="editedProductBrand" class="form-control input wMax" placeholder="New Brand" required>
         </div>
         <div class="form-group">
-          <input v-model="editedProductDescription" class="form-control" placeholder="New Description" required>
+          <input v-model="editedProductDescription" class="form-control input wMax" placeholder="New Description" required>
         </div>
-        <button @click="updateProduct" class="btn btn-dark">Save</button>
-        <button @click="closeModal" class="btn btn-light">Cancel</button>
+        <button @click="updateProduct" class="btn btn-dark inputBtn">Save</button>
+        <button @click="closeModal" class="btn btn-light inputBtn">Cancel</button>
       </div>
     </div>
   </div>
@@ -113,7 +113,18 @@ export default {
 </script>
 
 <style scoped>
-
+.card-body{
+  min-width: 30%;
+  padding: 10px;
+  border: 10px;
+}
+.mb-3 {
+    margin-bottom: 1rem!important;
+    display: flex;
+    flex-direction: row;
+    height: 400px;
+    gap: 20px;
+}
 .modal {
   position: fixed;
   top: 0;
@@ -125,11 +136,29 @@ export default {
   justify-content: center;
   align-items: center;
 }
-
+.mt-30{
+  margin-top: 30px;
+}
+.wMax{
+  width: 100%;
+  color: #000;
+}
 .modal-content {
   background-color: #fff;
-  padding: 20px;
+  padding: 20px 40px 20px 40px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  width: 50%;
+}
+.c-blue{
+  color: blue;
+}
+.gap-10{
+  display: flex;
+  gap: 20px;
+}
+.wqer{
+  width: unset;
+  height: unset;
 }
 </style>

@@ -20,6 +20,28 @@
 </template>
 
 <style>
+.categoryCss {
+  margin-top: 100px;
+  margin-right: 20px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  width: 200px;
+  height: 50px;
+  text-decoration: none;
+}
+.flex{
+  display: flex;
+  gap: 20;
+  margin: auto;
+}
+.gap-20{
+  display: flex;
+  grid-template: 20px;
+}
+
+
+
 .container {
   width: 60%;
   height: 100%;
@@ -42,6 +64,7 @@
   background-color: #f3f3f3;
   padding: 10px;
   width: 250px;
+  color: black;
 }
 
 .input:active,
